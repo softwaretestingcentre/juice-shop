@@ -17,22 +17,8 @@ on:
       - 'frontend/src/assets/i18n/*.json'
 env:
   NODE_DEFAULT_VERSION: 20
-  NODE_OPTIONS: "--max_old_space_size=4096"
-  CYCLONEDX_NPM_VERSION: '^2.0.0||^3.0.0'
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: "Use Node.js"
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af #v4.1.0
-        with:
-          node-version: ${{ env.NODE_DEFAULT_VERSION }}
-      
-      - name: "Install application"
-        run: npm install
-
   e2e:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -48,12 +34,6 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       
-      - name: "Install application"
-        run: npm install
-
-      - name: "Install CLI tools"
-        run: npm install -g @angular/cli
-
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: cypress-io/github-action@v6
@@ -61,4 +41,4 @@ jobs:
           install: false
           browser: ${{ matrix.browser }}
           start: npm start
-          wait-on: http://localhost:3000
+          wait-on: https://stc-owasp-juice-dnebatcgf2ddf4cr.uksouth-01.azurewebsites.net
