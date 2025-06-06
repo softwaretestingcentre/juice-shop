@@ -34,10 +34,13 @@ jobs:
         with:
           node-version: ${{ env.NODE_DEFAULT_VERSION }}
       
+      - name: "Install application"
+        run: npm install
+      
       - name: "Execute end-to-end tests on Ubuntu"
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: cypress-io/github-action@v6
         with:
-          install: true
+          install: false
           browser: ${{ matrix.browser }}
           wait-on: https://stc-owasp-juice-dnebatcgf2ddf4cr.uksouth-01.azurewebsites.net
