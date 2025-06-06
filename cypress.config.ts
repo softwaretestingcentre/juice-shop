@@ -5,6 +5,15 @@ import type { Memory as MemoryConfig, Product as ProductConfig } from './lib/con
 import * as utils from './lib/utils'
 import * as otplib from 'otplib'
 
+const browserify = require('@cypress/browserify-preprocessor');
+const cucumber = require('cypress-cucumber-preprocessor').default;
+const resolve = require('resolve');
+
+const options = {
+  ...browserify.defaultOptions,
+  typescript: resolve.sync('typescript', { baseDir: "/test/cypress/integration/" }),
+};
+
 export default defineConfig({
   projectId: '3hrkhu',
   defaultCommandTimeout: 10000,
@@ -13,11 +22,12 @@ export default defineConfig({
   },
   e2e: {
     baseUrl: 'http://localhost:3000',
-    specPattern: 'test/cypress/e2e/**.spec.ts',
+    specPattern: '**/*.feature',//'test/cypress/e2e/**.spec.ts',
     downloadsFolder: 'test/cypress/downloads',
     fixturesFolder: false,
     supportFile: 'test/cypress/support/e2e.ts',
     setupNodeEvents (on: any) {
+      on("file:preprocessor", cucumber(options)),
       on('task', {
         GenerateCoupon (discount: number) {
           return security.generateCoupon(discount)
