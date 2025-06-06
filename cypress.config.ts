@@ -21,7 +21,7 @@ export default defineConfig({
     runMode: 2
   },
   e2e: {
-    baseUrl: 'https://stc-owasp-juice-dnebatcgf2ddf4cr.uksouth-01.azurewebsites.net',
+    baseUrl: 'http://localhost:3000',
     specPattern: '**/*.feature',//'test/cypress/e2e/**.spec.ts',
     downloadsFolder: 'test/cypress/downloads',
     fixturesFolder: false,
