@@ -1,10 +1,12 @@
 import { Given } from "cypress-cucumber-preprocessor/steps";
 import homePage from "../pages/HomePage.cy";
-import scoreBoardPage from "../pages/ScoreBoardPage.cy";
-
 
 Given("Haxxor goes to the Juice Shop", () => {
     homePage.navigate();
+});
+
+When("she searches for {string}", searchTerm => {
+  homePage.enterSearchTerm(searchTerm);
 });
 
 Then("she sees she has solved the {string} challenge", challengeName => {
