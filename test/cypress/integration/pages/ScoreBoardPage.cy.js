@@ -2,8 +2,8 @@ class ScoreBoardPage {
     navigate() {
         cy.visit('/#/score-board');
     }
-    getSolvedCount() {
-        return cy.get(".score");
+    getSolvedChallenge(challengeName) {
+        return cy.get("//challenge-card[contains(concat(' ', normalize-space(@class), ' '), ' solved ')]//*[text()='" + challengeName + "']");
     }
 }
 
